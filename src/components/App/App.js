@@ -6,6 +6,10 @@ import { connect } from "react-redux";
 
 
 class App extends Component {
+  state = {
+    element: ''
+  }
+
   handleClick = () => {
     let action = {
       type: 'BUTTON WON',
@@ -20,6 +24,12 @@ class App extends Component {
     this.props.dispatch(action);
   }
 
+  handleChange = (event) => {
+    this.setState({
+      element: event.target.value,
+    })
+  }
+
   render(){
     
   return (
@@ -30,8 +40,8 @@ class App extends Component {
       <h1>Redux Intro!</h1>
       <button onClick={this.handleClick}>Button 1</button>
       <button onClick={this.handleClick2}>Button 2</button>
-      <input placeholder="text goes here"></input>
-      <button onClick={() => {this.props.dispatch({type: 'ADD_ELEMENT', payload:'hydrogen'});
+      <input placeholder="text goes here" type="text" onChange={this.handleChange} value={this.state.element}></input>
+      <button onClick={() => {this.props.dispatch({type: 'ADD_ELEMENT', payload: this.state.element}); this.setState({element: ''})
       }}>Add Element</button>
     </div>
   );

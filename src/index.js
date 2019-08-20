@@ -26,7 +26,7 @@ const secondReducer = (state = 100, action) => {
 
 const elementListReducer = (state = [], action) => {
   if(action.type === 'ADD_ELEMENT'){
-    console.log(action.payload);
+    console.log(`this is the payload: ${action.payload}`);
     return action.payload
   }
   return state;
