@@ -31,3 +31,15 @@
     transform: rotate(360deg);
   }
 }
+
+.goat {
+  /* display: flex;
+  position: absolute; */
+  min-width: 500px;
+  min-height: 500px;
+  z-index: 1;
+  /* margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-self: center; */
+}

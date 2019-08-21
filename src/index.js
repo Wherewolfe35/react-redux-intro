@@ -3,22 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import lager from 'redux-logger';
 
 const firstReducer = (state = 0, action) => {
-  console.log('first reducer state', state);
+  // console.log('first reducer state', state);
   if (action.type === 'BUTTON WON') {
-    console.log(`hey y'all, I'm a reducer`, action);
     return state + 1
   }
   return state;
 }
 
 const secondReducer = (state = 100, action) => {
-  console.log('second reducer state', state);
   if (action.type === 'BUTTON TOO') {
-    console.log(`hey y'all, I'm another reducer`, action);
     return state - 1;
   }
   return state;
@@ -26,8 +24,7 @@ const secondReducer = (state = 100, action) => {
 
 const elementListReducer = (state = [], action) => {
   if(action.type === 'ADD_ELEMENT'){
-    console.log(`this is the payload: ${action.payload}`);
-    return action.payload
+    return [...state, action.payload]
   }
   return state;
 }
@@ -38,7 +35,8 @@ const store = createStore(
     firstReducer, 
     secondReducer,
     elementListReducer
-  })
+  }),
+  applyMiddleware(lager)
 )
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

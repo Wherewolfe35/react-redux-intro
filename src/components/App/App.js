@@ -37,16 +37,26 @@ class App extends Component {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
+      <code>{JSON.stringify(this.props.reduxStore)}</code>
       <h1>Redux Intro!</h1>
       <button onClick={this.handleClick}>Button 1</button>
       <button onClick={this.handleClick2}>Button 2</button>
       <input placeholder="text goes here" type="text" onChange={this.handleChange} value={this.state.element}></input>
-      <button onClick={() => {this.props.dispatch({type: 'ADD_ELEMENT', payload: this.state.element}); this.setState({element: ''})
-      }}>Add Element</button>
+      <button onClick={() => {if(this.state.element !== ''){this.props.dispatch({type: 'ADD_ELEMENT', payload: this.state.element}); this.setState({element: ''});
+      } else {alert('Thou shall not pass an empty string!')}}}>Add Element</button> <br />
+      {this.state.element === 'goat' && <img className="goat" src='./goat_small.jpg' alt='' />}
     </div>
   );
   }
 }
 
+const putReduxStateOnProps = (reduxStore) => {
+  return {
+    //puts the store on this.props.reduxStore
+    reduxStore
+  }
+}
+
 //gives us a dispatch() property which tells redux what has just happened
-export default connect()(App);
+//putReduxStateonProps adds stor object to this.props
+export default connect(putReduxStateOnProps)(App);
